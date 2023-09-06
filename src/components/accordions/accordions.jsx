@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useMemo, useState } from "react";
 import Content from "./Content";
 import Header from "./Header";
 
@@ -8,8 +8,8 @@ const { Provider } = AccordionContext;
 const Accordions = ({ children }) => {
 
     const [isExpand, setIsExpand] = useState(false);
-    const handleIsExpand = () => setIsExpand((prev) => !prev);
-    const values = { isExpand, handleIsExpand }
+    const handleIsExpand = useCallback(() => setIsExpand((prev) => !prev), []);
+    const values = useMemo(() => ({ isExpand, handleIsExpand }), [isExpand, handleIsExpand])
     console.log(children)
     return (
         <Provider Provider value={values}>
